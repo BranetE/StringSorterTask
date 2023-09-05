@@ -2,9 +2,9 @@ package sample;
 
 import java.util.stream.Collectors;
 import java.util.ArrayList;
-import java.util.Comparator;
+// import java.util.Comparator;
 import java.util.List;
-import java.util.Collections;
+// import java.util.Collections;
 
 /**
  * Marking will be based upon producing a readable, well engineered solution rather than factors
@@ -34,19 +34,14 @@ public class StringSorter {
         }
 
         List<String> result = new ArrayList<>();
-        List<String> withoutExceptionPrefix = new ArrayList<>();
-        List<String> withExceptionPrefix = new ArrayList<>();
-
-        for (String e : unsortedStrings) {
-            if(e.startsWith(exceptionChar)){
-                withExceptionPrefix.add(e);
-            }else{
-                withoutExceptionPrefix.add(e);
-            }            
-        }
-
-        Collections.sort(withoutExceptionPrefix);
-        Collections.sort(withExceptionPrefix, Collections.reverseOrder());
+        List<String> withoutExceptionPrefix = unsortedStrings.stream()
+                    .filter(e -> (!e.startsWith(exceptionChar)))
+                    .sorted()
+                    .collect(Collectors.toList());
+        List<String> withExceptionPrefix = unsortedStrings.stream()
+                    .filter(e -> (e.startsWith(exceptionChar)))
+                    .sorted((a, b) -> (b.compareTo(a)))
+                    .collect(Collectors.toList());
 
         result.addAll(withoutExceptionPrefix);
         result.addAll(withExceptionPrefix);
