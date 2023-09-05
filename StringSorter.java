@@ -29,19 +29,21 @@ public class StringSorter {
      */
     public List<String> sortStrings(List<String> unsortedStrings, String exceptionChar) {
         // your solution here
-        if(exceptionChar.isEmpty()){
-            throw new IllegalArgumentException("exceptionChar cannot be empty");
+        if(exceptionChar.isBlank()){
+            return unsortedStrings.stream()
+                .sorted()
+                .collect(Collectors.toList());
         }
 
         List<String> result = new ArrayList<>();
         List<String> withoutExceptionPrefix = unsortedStrings.stream()
-                    .filter(e -> (!e.startsWith(exceptionChar)))
-                    .sorted()
-                    .collect(Collectors.toList());
+                .filter(e -> (!e.startsWith(exceptionChar)))
+                .sorted()
+                .collect(Collectors.toList());
         List<String> withExceptionPrefix = unsortedStrings.stream()
-                    .filter(e -> (e.startsWith(exceptionChar)))
-                    .sorted((a, b) -> (b.compareTo(a)))
-                    .collect(Collectors.toList());
+                .filter(e -> (e.startsWith(exceptionChar)))
+                .sorted((a, b) -> (b.compareTo(a)))
+                .collect(Collectors.toList());
 
         result.addAll(withoutExceptionPrefix);
         result.addAll(withExceptionPrefix);
