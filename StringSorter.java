@@ -30,7 +30,7 @@ public class StringSorter {
     public List<String> sortStrings(List<String> unsortedStrings, String exceptionChar) {
         // your solution here
         if(exceptionChar.isEmpty()){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("exceptionChar cannot be empty");
         }
 
         List<String> result = new ArrayList<>();
